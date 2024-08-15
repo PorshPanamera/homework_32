@@ -1,23 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addTodo, toggleTodo } from "./store";
+import "./App.css";
 
 function App() {
+  const [newTodo, setNewTodo] = useState("");
+  const todos = useSelector((state) => state.todos);
+  const dispatch = useDispatch();
+
+  const handleAddTodo = () => {
+    if (newTodo.trim() === "") return;
+    dispatch(addTodo(newTodo));
+    setNewTodo("");
+  };
+
+  const handleToggleTodo = (index) => {
+    dispatch(toggleTodo(index));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="App">
+      <h1>тудушки</h1>
+      <ul>
+        {todos.map((todo, index) => (
+          <li
+            key={index}
+            style={{ textDecoration: todo.completed ? "line-through" : "none" }}
+            onClick={() => handleToggleTodo(index)}
+          >
+            {todo.text}
+          </li>
+        ))}
+      </ul>
+      <div id="add-content">
+        <input
+          type="text"
+          value={newTodo}
+          onChange={(e) => setNewTodo(e.target.value)}
+          placeholder="Введите текст"
+        />
+        <button onClick={handleAddTodo}>Добавить</button>
+      </div>
     </div>
   );
 }

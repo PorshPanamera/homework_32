@@ -1,6 +1,8 @@
-# Getting Started with Create React App
+# my task
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Переписати колишню програму про todo на використання redux.
+
+Дані зберігаємо в редаксівському сторі, на сервер нічого не відправляємо.
 
 ## Available Scripts
 
